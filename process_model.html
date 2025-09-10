@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agile Development Process</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .holderCircle {
+      width: 350px;
+      height: 350px;
+      border: 2px dotted #00a99d;
+      border-radius: 50%;
+      position: relative;
+      margin: auto;
+    }
+
+    .dotCircle {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-radius: 50%;
+      animation: rotateCircle 20s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes rotateCircle {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .holderCircle:hover .dotCircle {
+      animation-play-state: paused;
+    }
+
+    .itemDot {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #e6e6e6;
+      text-align: center;
+      line-height: 65px;
+      font-size: 14px;
+      font-weight: 500;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .itemDot:hover,
+    .itemDot.active {
+      background: #00b4d4;
+      color: white;
+      border-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Positioning around border */
+    .itemDot1 {
+      transform: rotate(0deg) translate(0, -175px) rotate(0deg);
+    }
+
+    .itemDot2 {
+      transform: rotate(72deg) translate(0, -175px) rotate(-72deg);
+    }
+
+    .itemDot3 {
+      transform: rotate(144deg) translate(0, -175px) rotate(-144deg);
+    }
+
+    .itemDot4 {
+      transform: rotate(216deg) translate(0, -175px) rotate(-216deg);
+    }
+
+    .itemDot5 {
+      transform: rotate(288deg) translate(0, -175px) rotate(-288deg);
+    }
+
+    .contentCircle {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .CirItem {
+      display: none;
+    }
+
+    .CirItem.active {
+      display: block;
+    }
+
+    .title-box span {
+      color: #00967f;
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <div class="container py-5 text-center">
+    <h2 class="fw-bold text-primary">Agile Development Process</h2>
+    <p class="text-secondary mb-4">We follow Agile best practice to deliver products faster while being reliable.</p>
+
+    <div class="holderCircle">
+      <div class="dotCircle">
+        <div class="itemDot itemDot1 active" data-tab="1">Define</div>
+        <div class="itemDot itemDot2" data-tab="2">Design</div>
+        <div class="itemDot itemDot3" data-tab="3">Build</div>
+        <div class="itemDot itemDot4" data-tab="4">QA</div>
+        <div class="itemDot itemDot5" data-tab="5">UAT</div>
+      </div>
+      <div class="contentCircle">
+        <div class="CirItem CirItem1 active">
+          <h5><span>Define</span></h5>
+          <p>We brainstorm and create wireframes that describe the site structure and user flow.</p>
+        </div>
+        <div class="CirItem CirItem2">
+          <h5><span>Design</span></h5>
+          <p>Our designers provide a powerful UI/UX design to your project.</p>
+        </div>
+        <div class="CirItem CirItem3">
+          <h5><span>Build</span></h5>
+          <p>Developers construct a robust and flexible application for you.</p>
+        </div>
+        <div class="CirItem CirItem4">
+          <h5><span>Quality Assurance</span></h5>
+          <p>We test and fix bugs to ensure a smooth experience.</p>
+        </div>
+        <div class="CirItem CirItem5">
+          <h5><span>UAT</span></h5>
+          <p>We beta test and gather feedback to finalize the application.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const items = document.querySelectorAll('.itemDot');
+    const contents = document.querySelectorAll('.CirItem');
+    let currentIndex = 0;
+    const totalItems = items.length;
+    const interval = 20000;
+    const changeEvery = interval / totalItems;
+
+    function activateItem(index) {
+      items.forEach(i => i.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      items[index].classList.add('active');
+      contents[index].classList.add('active');
+    }
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalItems;
+      activateItem(currentIndex);
+    }, changeEvery);
+
+    items.forEach((item, idx) => {
+      item.addEventListener('mouseover', () => activateItem(idx));
+    });
+  </script>
+
+</body>
+
+</html>

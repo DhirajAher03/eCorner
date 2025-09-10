@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - eCorner Software Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="contactus.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+ 
+    #success-message {
+      display: none;
+      margin-top: 15px;
+      font-weight: 600;
+      color: green;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar-wrapper">
+    <div data-animation="over-right" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
+      role="banner" class="navbar w-nav">
+      <div class="navbar-container w-container">
+        <div class="navbar-wrap">
+          <a href="#" class="brand-logo-wrap w-nav-brand">
+            <img src="logo6.png" loading="lazy" alt="logo" class="brand-logo logonew" />
+            <div class="brand-name">Corner Software Solutions</div>
+          </a>
+          <a href="#" class="primary-button is-desktop w-button">Contact Us</a>
+          <div class="bottom-border"></div>
+          <div class="menu-button w-nav-button">
+            <div class="w-icon-nav-menu"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919607774918" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" />
+  </a>
+
+  <section class="contact-section">
+    <div class="contact-box">
+      <h2>Get in Touch</h2>
+      <p>Let’s talk about your project or query. Send us a message below.</p>
+
+      <!-- AJAX-based Form -->
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="subject" placeholder="Subject" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+
+        <button type="submit">Send Message</button>
+        <div id="success-message">Form submitted successfully!</div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      fetch("https://formsubmit.co/ajax/dhirajaheraher@gmail.com", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          subject: form.subject.value,
+          message: form.message.value
+        })
+      }).then(response => response.json())
+        .then(data => {
+          if (data.success === "true") {
+            document.getElementById("success-message").style.display = "block";
+            form.reset();
+          } else {
+            alert("Something went wrong. Please try again.");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Error sending message.");
+        });
+    });
+  </script>
+
+</body>
+</html>
